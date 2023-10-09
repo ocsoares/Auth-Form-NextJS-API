@@ -6,26 +6,35 @@ import { UserAlreadyExistsByEmailException } from 'src/exceptions/user-exception
 import { IUser } from 'src/models/IUser';
 import { EncryptPasswordHelper } from 'src/helpers/encrypt-password.helper';
 import { ErrorCreatingUserException } from 'src/exceptions/user-exceptions/error-creating-user.exception';
+import { UserPasswordDoNotMatchException } from 'src/exceptions/user-exceptions/user-password-do-not-match.exception';
 
 @Injectable()
 export class CreateUserService implements IService {
     constructor(private readonly userRepository: UserRepository) {}
 
-    async execute(data: CreateUserDTO): Promise<IUser> {
-        const userAlreadyExistsByEmail = await this.userRepository.findByEmail(
-            data.email,
-        );
+    async execute({
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword,
+    }: CreateUserDTO): Promise<IUser> {
+        const userAlreadyExistsByEmail =
+            await this.userRepository.findByEmail(email);
 
         if (userAlreadyExistsByEmail) {
             throw new UserAlreadyExistsByEmailException();
         }
 
+        if (password !== confirmPassword) {
+            throw new UserPasswordDoNotMatchException();
+        }
+
         const createdUser = await this.userRepository.create({
-            ...data,
-            password: await EncryptPasswordHelper.bcryptEncrypt(
-                data.password,
-                10,
-            ),
+            firstName,
+            lastName,
+            email,
+            password: await EncryptPasswordHelper.bcryptEncrypt(password, 10),
         });
 
         if (!createdUser) {

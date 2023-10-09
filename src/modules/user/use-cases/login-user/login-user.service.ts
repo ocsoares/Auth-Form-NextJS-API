@@ -8,11 +8,17 @@ import { IUserPayload } from 'src/modules/auth/models/IUserPayload';
 export class LoginUserService implements IService {
     constructor(private readonly jwtService: JwtService) {}
 
-    async execute(data: IUserWithoutPassword): Promise<string> {
+    async execute({
+        id,
+        firstName,
+        lastName,
+        email,
+    }: IUserWithoutPassword): Promise<string> {
         const payload: IUserPayload = {
-            sub: data.id,
-            name: data.name,
-            email: data.email,
+            sub: id,
+            firstName,
+            lastName,
+            email,
         };
 
         const JWT = this.jwtService.sign(payload);

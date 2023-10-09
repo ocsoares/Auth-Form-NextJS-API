@@ -14,11 +14,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    async validate(payload: IUserPayload): Promise<IUserJWT> {
+    async validate({
+        email,
+        firstName,
+        lastName,
+        sub,
+    }: IUserPayload): Promise<IUserJWT> {
         return {
-            id: payload.sub,
-            email: payload.email,
-            name: payload.name,
+            id: sub,
+            email,
+            firstName,
+            lastName,
         };
     }
 }

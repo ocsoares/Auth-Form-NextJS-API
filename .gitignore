@@ -40,3 +40,5 @@ lerna-debug.log*
 # My files
 TODO.md
 pgdata
+.vscode/*
+!.vscode/extensions.json

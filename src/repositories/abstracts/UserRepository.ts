@@ -4,6 +4,5 @@ import { CreateUserDTO } from 'src/modules/user/use-cases/create-user/dtos/Creat
 export abstract class UserRepository {
     abstract create(data: CreateUserDTO): Promise<IUser>;
     abstract findById(id: string): Promise<IUser>;
-    abstract findByName(name: string): Promise<IUser>;
     abstract findByEmail(email: string): Promise<IUser>;
 }

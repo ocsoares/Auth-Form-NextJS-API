@@ -15,6 +15,11 @@ async function bootstrap() {
         }),
     );
 
+    app.enableCors({
+        origin: process.env.FRONTEND_URL,
+        methods: ['GET', 'POST'],
+    });
+
     await app.listen(PORT);
 }
 

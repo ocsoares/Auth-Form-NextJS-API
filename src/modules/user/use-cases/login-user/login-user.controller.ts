@@ -21,7 +21,6 @@ export class LoginUserController implements IController {
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
     async handle(@Request() req: IAuthRequest): Promise<returnHandle> {
-        console.log('REQ:', req.user);
         const data = await this._loginUserService.execute(req.user);
 
         return {

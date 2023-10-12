@@ -12,6 +12,7 @@ import { IAuthRequest } from 'src/modules/auth/types/IAuthRequest';
 import { LoginUserService } from './login-user.service';
 import { IsPublic } from '../../../auth/decorators/is-public.decorator';
 
+// TALVEZ tb retornar o USER !!!
 @Controller('auth')
 export class LoginUserController implements IController {
     constructor(private readonly _loginUserService: LoginUserService) {}
@@ -21,10 +22,11 @@ export class LoginUserController implements IController {
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
     async handle(@Request() req: IAuthRequest): Promise<returnHandle> {
-        const JWT = await this._loginUserService.execute(req.user);
+        console.log('REQ:', req.user);
+        const data = await this._loginUserService.execute(req.user);
 
         return {
-            data: JWT,
+            data,
         };
     }
 }

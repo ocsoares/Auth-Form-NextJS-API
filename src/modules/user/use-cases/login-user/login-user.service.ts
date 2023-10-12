@@ -3,6 +3,12 @@ import { JwtService } from '@nestjs/jwt';
 import { IUserWithoutPassword } from 'src/models/IUserWithoutPassword';
 import { IService } from 'src/interfaces/IService';
 import { IUserPayload } from 'src/modules/auth/models/IUserPayload';
+import { IReturnUser } from 'src/interfaces/IReturnUser';
+
+interface IReturnLogin {
+    user: IReturnUser;
+    jwt: string;
+}
 
 @Injectable()
 export class LoginUserService implements IService {
@@ -13,7 +19,7 @@ export class LoginUserService implements IService {
         firstName,
         lastName,
         email,
-    }: IUserWithoutPassword): Promise<string> {
+    }: IUserWithoutPassword): Promise<IReturnLogin> {
         const payload: IUserPayload = {
             sub: id,
             firstName,
@@ -21,8 +27,15 @@ export class LoginUserService implements IService {
             email,
         };
 
-        const JWT = this.jwtService.sign(payload);
+        const jwt = this.jwtService.sign(payload);
 
-        return JWT;
+        return {
+            user: {
+                firstName,
+                lastName,
+                email,
+            },
+            jwt,
+        };
     }
 }

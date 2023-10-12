@@ -12,7 +12,6 @@ import { IAuthRequest } from 'src/modules/auth/types/IAuthRequest';
 import { LoginUserService } from './login-user.service';
 import { IsPublic } from '../../../auth/decorators/is-public.decorator';
 
-// TALVEZ tb retornar o USER !!!
 @Controller('auth')
 export class LoginUserController implements IController {
     constructor(private readonly _loginUserService: LoginUserService) {}

@@ -6,7 +6,7 @@ import {
     Request,
     UseGuards,
 } from '@nestjs/common';
-import { IController, returnHandle } from 'src/interfaces/IController';
+import { IController } from 'src/interfaces/IController';
 import { LocalAuthGuard } from '../../../auth/guards/local-auth.guard';
 import { IAuthRequest } from 'src/modules/auth/types/IAuthRequest';
 import { LoginUserService } from './login-user.service';
@@ -20,11 +20,11 @@ export class LoginUserController implements IController {
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
-    async handle(@Request() req: IAuthRequest): Promise<returnHandle> {
+    async handle(@Request() req: IAuthRequest): Promise<object> {
         const data = await this._loginUserService.execute(req.user);
 
         return {
-            data,
+            ...data,
         };
     }
 }

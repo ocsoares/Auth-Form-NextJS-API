@@ -5,8 +5,7 @@ import { IService } from 'src/interfaces/IService';
 import { IUserPayload } from 'src/modules/auth/models/IUserPayload';
 import { IReturnUser } from 'src/interfaces/IReturnUser';
 
-interface IReturnLogin {
-    user: IReturnUser;
+interface IReturnLogin extends IReturnUser {
     jwt: string;
 }
 
@@ -30,11 +29,9 @@ export class LoginUserService implements IService {
         const jwt = this.jwtService.sign(payload);
 
         return {
-            user: {
-                firstName,
-                lastName,
-                email,
-            },
+            firstName,
+            lastName,
+            email,
             jwt,
         };
     }

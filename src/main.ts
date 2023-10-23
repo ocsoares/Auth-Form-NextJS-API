@@ -4,9 +4,13 @@ import { AppModule } from './app.module';
 import { PORT } from './config/app';
 import { rateLimiterMiddleware } from './modules/auth/middlewares/rate-limiter.middleware';
 import { mw } from 'request-ip';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+    // To obtain the real IP address of the request on a production server !
+    app.set('trust proxy', true);
 
     app.use(mw());
 

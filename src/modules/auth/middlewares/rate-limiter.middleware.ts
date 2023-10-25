@@ -4,7 +4,7 @@ import { getClientIp } from 'request-ip';
 
 const rateLimiter = rateLimit({
     windowMs: 180000, // 3 min
-    max: 10, // 7 requests every 3 min
+    max: 10, // 10 requests every 3 min
     message: {
         message: 'You have sent too many requests. Try again later.',
         error: 'Too Many Request',

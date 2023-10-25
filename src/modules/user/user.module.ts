@@ -4,6 +4,8 @@ import { CreateUserService } from './use-cases/create-user/create-user.service';
 import { LoginUserController } from './use-cases/login-user/login-user.controller';
 import { LoginUserService } from './use-cases/login-user/login-user.service';
 import { JwtModule } from '@nestjs/jwt';
+import { CheckIfUserJwtExpiredService } from './use-cases/check-if-user-jwt-expired/check-if-user-jwt-expired.service';
+import { CheckIfUserJwtExpiredController } from './use-cases/check-if-user-jwt-expired/check-if-user-jwt-expired.controller';
 
 @Module({
     imports: [
@@ -14,7 +16,15 @@ import { JwtModule } from '@nestjs/jwt';
             }),
         }),
     ],
-    controllers: [CreateUserController, LoginUserController],
-    providers: [CreateUserService, LoginUserService],
+    controllers: [
+        CreateUserController,
+        LoginUserController,
+        CheckIfUserJwtExpiredController,
+    ],
+    providers: [
+        CreateUserService,
+        LoginUserService,
+        CheckIfUserJwtExpiredService,
+    ],
 })
 export class UserModule {}

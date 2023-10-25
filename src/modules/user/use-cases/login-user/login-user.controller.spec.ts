@@ -13,7 +13,6 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { ConfigModule } from '@nestjs/config';
 import { IUserWithoutPassword } from 'src/models/IUserWithoutPassword';
-import { LoginValidationBodyModule } from '../../../login-validation-body/login-validation-body.module';
 
 describe('LoginUserController', () => {
     let app: INestApplication;
@@ -24,14 +23,16 @@ describe('LoginUserController', () => {
 
     const user: IUser = {
         id: 'any_id',
-        name: 'Teste',
+        firstName: 'Teste',
+        lastName: 'Apenas',
         email: 'teste@gmail.com',
         password: 'teste123',
     };
 
     const userWithoutPass: IUserWithoutPassword = {
         id: user.id,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
     };
 
@@ -58,7 +59,6 @@ describe('LoginUserController', () => {
             imports: [
                 ConfigModule.forRoot(),
                 PassportModule.register({ defaultStrategy: 'local' }),
-                LoginValidationBodyModule,
             ],
             controllers: [LoginUserController],
             providers: [

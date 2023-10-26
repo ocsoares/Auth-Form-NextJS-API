@@ -3,8 +3,8 @@ import rateLimit from 'express-rate-limit';
 import { getClientIp } from 'request-ip';
 
 const rateLimiter = rateLimit({
-    windowMs: 180000, // 3 min
-    max: 10, // 10 requests every 3 min
+    windowMs: 240000, // 4 min
+    max: 16, // 16 requests every 4 min
     message: {
         message: 'You have sent too many requests. Try again later.',
         error: 'Too Many Request',

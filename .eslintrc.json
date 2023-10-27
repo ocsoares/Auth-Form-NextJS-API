@@ -62,7 +62,7 @@
                 "leadingUnderscore": "allow",
                 "trailingUnderscore": "allow",
                 "filter": {
-                    "regex": "^(Allow-a-Word)$",
+                    "regex": "^(Allow-a-Word|Authorization)$",
                     "match": false
                 }                  
             },

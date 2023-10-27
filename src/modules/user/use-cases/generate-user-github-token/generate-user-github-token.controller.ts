@@ -1,4 +1,20 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { IController } from 'src/interfaces/IController';
+import { IsPublic } from 'src/modules/auth/decorators/is-public.decorator';
+import { GenerateUserGithubTokenService } from './generate-user-github-token.service';
+import { GenerateUserGitHubTokenDTO } from './dtos/dtos/GenerateUserGitHubTokenDTO';
 
-@Controller('generate-user-github-token')
-export class GenerateUserGithubTokenController {}
+@Controller('auth')
+export class GenerateUserGithubTokenController implements IController {
+    constructor(
+        private readonly generateUserGithubTokenService: GenerateUserGithubTokenService,
+    ) {}
+
+    @IsPublic()
+    @Post('generate-user-github-token')
+    async handle(@Body() body: GenerateUserGitHubTokenDTO): Promise<object> {
+        const jwt = await this.generateUserGithubTokenService.execute(body);
+
+        return { jwt };
+    }
+}

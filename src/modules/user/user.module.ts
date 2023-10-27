@@ -10,6 +10,7 @@ import { GenerateUserGoogleTokenController } from './use-cases/generate-user-goo
 import { GenerateUserGoogleTokenService } from './use-cases/generate-user-google-token/generate-user-google-token.service';
 import { GenerateUserGithubTokenService } from './use-cases/generate-user-github-token/generate-user-github-token.service';
 import { GenerateUserGithubTokenController } from './use-cases/generate-user-github-token/generate-user-github-token.controller';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { GenerateUserGithubTokenController } from './use-cases/generate-user-git
                 signOptions: { expiresIn: process.env.JWT_EXPIRATION },
             }),
         }),
+        HttpModule,
     ],
     controllers: [
         CreateUserController,

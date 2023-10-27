@@ -10,7 +10,7 @@ import { IGoogleJWT } from './interfaces/IGoogleJWT';
 export class GenerateUserGoogleTokenService implements IService {
     constructor(private readonly jwtService: JwtService) {}
 
-    async execute({ jwt }: GenerateUserGoogleTokenDTO): Promise<string> {
+    async execute({ googleJWT }: GenerateUserGoogleTokenDTO): Promise<string> {
         try {
             const clientOAuth2 = new OAuth2Client({
                 clientId: process.env.GOOGLE_CLIENT_ID,
@@ -18,7 +18,7 @@ export class GenerateUserGoogleTokenService implements IService {
             });
 
             const token = await clientOAuth2.verifyIdToken({
-                idToken: jwt,
+                idToken: googleJWT,
                 audience: process.env.GOOGLE_CLIENT_ID,
             });
 

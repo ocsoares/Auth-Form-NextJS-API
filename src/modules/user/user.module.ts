@@ -8,6 +8,8 @@ import { CheckIfUserJwtExpiredService } from './use-cases/check-if-user-jwt-expi
 import { CheckIfUserJwtExpiredController } from './use-cases/check-if-user-jwt-expired/check-if-user-jwt-expired.controller';
 import { GenerateUserGoogleTokenController } from './use-cases/generate-user-google-token/generate-user-google-token.controller';
 import { GenerateUserGoogleTokenService } from './use-cases/generate-user-google-token/generate-user-google-token.service';
+import { GenerateUserGithubTokenService } from './use-cases/generate-user-github-token/generate-user-github-token.service';
+import { GenerateUserGithubTokenController } from './use-cases/generate-user-github-token/generate-user-github-token.controller';
 
 @Module({
     imports: [
@@ -23,12 +25,14 @@ import { GenerateUserGoogleTokenService } from './use-cases/generate-user-google
         LoginUserController,
         CheckIfUserJwtExpiredController,
         GenerateUserGoogleTokenController,
+        GenerateUserGithubTokenController,
     ],
     providers: [
         CreateUserService,
         LoginUserService,
         CheckIfUserJwtExpiredService,
         GenerateUserGoogleTokenService,
+        GenerateUserGithubTokenService,
     ],
 })
 export class UserModule {}

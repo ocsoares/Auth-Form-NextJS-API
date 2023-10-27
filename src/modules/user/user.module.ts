@@ -14,7 +14,7 @@ import { GenerateUserGoogleTokenService } from './use-cases/generate-user-google
         JwtModule.registerAsync({
             useFactory: async () => ({
                 secret: process.env.JWT_SECRET,
-                signOptions: { expiresIn: '60s' },
+                signOptions: { expiresIn: process.env.JWT_EXPIRATION },
             }),
         }),
     ],

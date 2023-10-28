@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class LoginRequestBody {
     @IsNotEmpty()
@@ -8,4 +8,8 @@ export class LoginRequestBody {
     @IsNotEmpty()
     @IsString()
     password: string;
+
+    @IsNotEmpty()
+    @IsBoolean()
+    remember: boolean;
 }

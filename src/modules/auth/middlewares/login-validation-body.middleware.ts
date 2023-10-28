@@ -16,6 +16,7 @@ export class LoginValidationBodyMiddleware implements NestMiddleware {
 
         loginRequestBody.email = body.email;
         loginRequestBody.password = body.password;
+        loginRequestBody.remember = body.remember;
 
         const validations = await validate(loginRequestBody);
 
@@ -28,9 +29,9 @@ export class LoginValidationBodyMiddleware implements NestMiddleware {
         }
 
         if (body.email && body.password) {
-            if (Object.keys(body).length >= 3) {
+            if (Object.keys(body).length >= 4) {
                 throw new BadRequestException([
-                    'just the properties email and password should exist',
+                    'just the properties email, password and remember should exist',
                 ]);
             }
         }

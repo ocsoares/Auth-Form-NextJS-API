@@ -1,4 +1,5 @@
 import {
+    Body,
     Controller,
     HttpCode,
     HttpStatus,
@@ -11,6 +12,7 @@ import { LocalAuthGuard } from '../../../auth/guards/local-auth.guard';
 import { IAuthRequest } from 'src/modules/auth/types/IAuthRequest';
 import { LoginUserService } from './login-user.service';
 import { IsPublic } from '../../../auth/decorators/is-public.decorator';
+import { LoginRequestBody } from 'src/modules/auth/models/LoginRequestBody';
 
 @Controller('auth')
 export class LoginUserController implements IController {
@@ -20,8 +22,14 @@ export class LoginUserController implements IController {
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
-    async handle(@Request() req: IAuthRequest): Promise<object> {
-        const data = await this._loginUserService.execute(req.user);
+    async handle(
+        @Request() req: IAuthRequest,
+        @Body() { remember }: LoginRequestBody,
+    ): Promise<object> {
+        const data = await this._loginUserService.execute({
+            ...req.user,
+            remember,
+        });
 
         return {
             ...data,

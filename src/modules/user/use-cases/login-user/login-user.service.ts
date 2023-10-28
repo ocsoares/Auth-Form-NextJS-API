@@ -13,12 +13,15 @@ interface IReturnLogin extends IReturnUser {
 export class LoginUserService implements IService {
     constructor(private readonly jwtService: JwtService) {}
 
+    private jwt: string;
+
     async execute({
         id,
         firstName,
         lastName,
         email,
-    }: IUserWithoutPassword): Promise<IReturnLogin> {
+        remember,
+    }: IUserWithoutPassword & { remember: boolean }): Promise<IReturnLogin> {
         const payload: IUserPayload = {
             sub: id,
             firstName,
@@ -26,13 +29,17 @@ export class LoginUserService implements IService {
             email,
         };
 
-        const jwt = this.jwtService.sign(payload);
+        if (remember) {
+            this.jwt = this.jwtService.sign(payload, { expiresIn: '48h' });
+        } else {
+            this.jwt = this.jwtService.sign(payload);
+        }
 
         return {
             firstName,
             lastName,
             email,
-            jwt,
+            jwt: this.jwt,
         };
     }
 }

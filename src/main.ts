@@ -15,7 +15,32 @@ async function bootstrap() {
     // To obtain the real IP address of the request on a production server !
     app.set('trust proxy', true);
 
-    app.use(helmet());
+    app.use(
+        helmet({
+            contentSecurityPolicy: {
+                directives: {
+                    defaultSrc: ["'self'"],
+                    scriptSrc: [
+                        "'self'",
+                        "'unsafe-inline'",
+                        "'unsafe-eval'",
+                        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/',
+                    ],
+                    styleSrc: [
+                        "'self'",
+                        "'unsafe-inline'",
+                        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/',
+                    ],
+                    imgSrc: [
+                        "'self'",
+                        'data:',
+                        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/',
+                        'https://static-00.iconduck.com',
+                    ],
+                },
+            },
+        }),
+    );
 
     app.use(mw());
 

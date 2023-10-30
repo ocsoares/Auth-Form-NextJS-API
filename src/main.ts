@@ -2,7 +2,6 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { PORT } from './config/app';
-import { rateLimiterMiddleware } from './modules/auth/middlewares/rate-limiter.middleware';
 import { mw } from 'request-ip';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import helmet from 'helmet';
@@ -18,9 +17,6 @@ async function bootstrap() {
     app.use(helmet());
 
     app.use(mw());
-
-    // I used this because NestJS Throttler Module doesn't work !!!
-    app.use(rateLimiterMiddleware);
 
     app.setGlobalPrefix('api');
 

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { CreateUserController } from './use-cases/create-user/create-user.controller';
 import { CreateUserService } from './use-cases/create-user/create-user.service';
 import { LoginUserController } from './use-cases/login-user/login-user.controller';
@@ -11,6 +11,7 @@ import { GenerateUserGoogleTokenService } from './use-cases/generate-user-google
 import { GenerateUserGithubTokenService } from './use-cases/generate-user-github-token/generate-user-github-token.service';
 import { GenerateUserGithubTokenController } from './use-cases/generate-user-github-token/generate-user-github-token.controller';
 import { HttpModule } from '@nestjs/axios';
+import { rateLimiterMiddleware } from '../auth/middlewares/rate-limiter.middleware';
 
 @Module({
     imports: [
@@ -37,4 +38,9 @@ import { HttpModule } from '@nestjs/axios';
         GenerateUserGithubTokenService,
     ],
 })
-export class UserModule {}
+export class UserModule implements NestModule {
+    // I used this because NestJS Throttler Module doesn't work !!!
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(rateLimiterMiddleware).forRoutes('auth/*');
+    }
+}

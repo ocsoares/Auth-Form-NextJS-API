@@ -34,7 +34,7 @@ async function bootstrap() {
         )
         .setVersion('1.0')
         .addTag('auth-user')
-        .addTag('token')
+        .addTag('token-user')
         .addBearerAuth()
         .build();
 

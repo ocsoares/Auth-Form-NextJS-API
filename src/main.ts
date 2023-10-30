@@ -56,8 +56,6 @@ async function bootstrap() {
         customfavIcon: swaggerFavIcon,
     });
 
-    SwaggerModule.setup('docs', app, document);
-
     const server = app.getHttpAdapter();
 
     server.get('/', (req: Request, res: Response) => {

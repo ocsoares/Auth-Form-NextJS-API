@@ -14,7 +14,7 @@
 
 🚀 https://auth-form-next-js-api.vercel.app <br>
 
-Essa é uma **API** desenvolvida para a minha aplicação **frontend** chamada **Auth Form NextJS**, e fornece recursos como cadastrar usuário, logar usuário, checar se um JWT expirou e entre outros.
+Essa é uma **API** desenvolvida com **NestJS** para a minha aplicação **frontend** chamada **Auth Form NextJS**, e fornece recursos como cadastrar e logar usuário, checar se um JWT expirou e entre outros.
 
 🌐 _Frontend_ https://github.com/ocsoares/Auth-Form-NextJS/
 

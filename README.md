@@ -33,18 +33,18 @@ Pré-requisitos: Typescript, NodeJS e Docker
 git clone https://github.com/ocsoares/Auth-Form-NextJS-API
 
 # instalar as bibliotecas
-npm install
+pnpm install
 
 # criar um arquivo .env na pasta raíz do projeto
 
 # configurar esse .env baseado no arquivo .env.example
 
 # transpilar os arquivos do projeto para .js
-npm run build
+pnpm build
 
 # iniciar o container do docker
 docker-compose up
 
 # executar o projeto
-npm start
+pnpm start
 ```

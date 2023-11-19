@@ -88,8 +88,10 @@ async function bootstrap() {
     });
 
     app.enableCors({
+        allowedHeaders: 'Content-Type, Accept',
         origin: [process.env.FRONTEND_URL, process.env.FRONTEND_URL_CRUD],
         methods: ['GET', 'POST'],
+        credentials: true,
     });
 
     await app.listen(PORT);

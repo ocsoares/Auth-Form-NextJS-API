@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { IService } from 'src/interfaces/IService';
 import { CheckIfUserJwtExpiredDTO } from './dtos/CheckIfUserJwtExpiredDTO';
 import { InvalidTokenException } from 'src/exceptions/auth-exceptions/invalid-token.exception';
-import { IUserPayload } from 'src/modules/auth/models/IUserPayload';
 import { TokenExpiredError } from 'jsonwebtoken';
+import { TokenManager } from 'src/cryptography/abstracts/token-manager';
 
 @Injectable()
 export class CheckIfUserJwtExpiredService implements IService {
-    constructor(private readonly jwtService: JwtService) {}
+    constructor(private readonly tokenManager: TokenManager) {}
 
     async execute({ jwt }: CheckIfUserJwtExpiredDTO): Promise<boolean> {
         try {
-            this.jwtService.verify(jwt) as IUserPayload;
+            await this.tokenManager.verify(jwt);
 
             return false;
         } catch (error) {

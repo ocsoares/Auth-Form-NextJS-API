@@ -3,12 +3,12 @@ import { IService } from 'src/interfaces/IService';
 import { GenerateUserGoogleTokenDTO } from './dtos/GenerateUserGoogleTokenDTO';
 import { OAuth2Client } from 'google-auth-library';
 import { InvalidTokenException } from 'src/exceptions/auth-exceptions/invalid-token.exception';
-import { JwtService } from '@nestjs/jwt';
 import { IGoogleJWT } from './interfaces/IGoogleJWT';
+import { TokenManager } from 'src/cryptography/abstracts/token-manager';
 
 @Injectable()
 export class GenerateUserGoogleTokenService implements IService {
-    constructor(private readonly jwtService: JwtService) {}
+    constructor(private readonly tokenManager: TokenManager) {}
 
     async execute({ googleJWT }: GenerateUserGoogleTokenDTO): Promise<string> {
         try {
@@ -42,7 +42,8 @@ export class GenerateUserGoogleTokenService implements IService {
                 locale,
             };
 
-            const generatedGoogleJWT = this.jwtService.sign(jwtPayload);
+            const generatedGoogleJWT =
+                await this.tokenManager.generate(jwtPayload);
 
             return generatedGoogleJWT;
         } catch (error) {

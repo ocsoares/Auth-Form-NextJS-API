@@ -5,13 +5,13 @@ import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { InvalidTokenException } from 'src/exceptions/auth-exceptions/invalid-token.exception';
 import { IGitHubJWT } from './interfaces/IGitHubJWT';
-import { JwtService } from '@nestjs/jwt';
+import { TokenManager } from 'src/cryptography/abstracts/token-manager';
 
 @Injectable()
 export class GenerateUserGithubTokenService implements IService {
     constructor(
         private readonly httpService: HttpService,
-        private readonly jwtService: JwtService,
+        private readonly tokenManager: TokenManager,
     ) {}
 
     async execute({
@@ -42,7 +42,8 @@ export class GenerateUserGithubTokenService implements IService {
                 bio,
             };
 
-            const generatedGitHubJWT = this.jwtService.sign(jwtPayload);
+            const generatedGitHubJWT =
+                await this.tokenManager.generate(jwtPayload);
 
             return generatedGitHubJWT;
         } catch (error) {

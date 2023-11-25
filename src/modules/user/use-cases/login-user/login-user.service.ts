@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { IUserWithoutPassword } from 'src/models/IUserWithoutPassword';
 import { IService } from 'src/interfaces/IService';
 import { IUserPayload } from 'src/modules/auth/models/IUserPayload';
 import { IReturnUser } from 'src/interfaces/IReturnUser';
+import { TokenManager } from 'src/cryptography/abstracts/token-manager';
 
 interface IReturnLogin extends IReturnUser {
     jwt: string;
@@ -11,7 +11,7 @@ interface IReturnLogin extends IReturnUser {
 
 @Injectable()
 export class LoginUserService implements IService {
-    constructor(private readonly jwtService: JwtService) {}
+    constructor(private readonly tokenManager: TokenManager) {}
 
     private jwt: string;
 
@@ -30,9 +30,9 @@ export class LoginUserService implements IService {
         };
 
         if (remember) {
-            this.jwt = this.jwtService.sign(payload, { expiresIn: '48h' });
+            this.jwt = await this.tokenManager.generate(payload, '48h');
         } else {
-            this.jwt = this.jwtService.sign(payload);
+            this.jwt = await this.tokenManager.generate(payload);
         }
 
         return {

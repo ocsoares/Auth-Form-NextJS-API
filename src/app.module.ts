@@ -6,6 +6,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { PrismaDatabaseModule } from './repositories/implementations/prisma/prisma-database.module';
 import { BcryptHasherModule } from './cryptography/implementations/bcrypt/bcrypt-hasher.module';
+import { JwtManagerModule } from './cryptography/implementations/jwt/jwt-manager.module';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { BcryptHasherModule } from './cryptography/implementations/bcrypt/bcrypt
             envFilePath: '.env',
         }),
         PrismaDatabaseModule,
+        JwtManagerModule,
         BcryptHasherModule,
         UserModule,
         AuthModule,

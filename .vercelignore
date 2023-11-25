@@ -1,1 +1,9 @@
 pgdata
+REMEMBER_CRYPTOGRAPHY.md
+pem_pass_phrase.txt
+pem_pass_phrase-one-line.txt
+private_key.pem
+public_key.pem
+decrypted_private_key.pem
+token_private_key.txt
+token_public_key.txt

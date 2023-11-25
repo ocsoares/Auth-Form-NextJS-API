@@ -21,7 +21,7 @@
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:studio": "npx prisma studio",
     "prisma:deploy": "npx prisma migrate deploy",
-    "postinstall": "prisma generate && prisma migrate dev && prisma migrate deploy"
+    "postinstall": "prisma generate && prisma migrate deploy"
   },
   "prisma": {
     "schema": "src/repositories/implementations/prisma/schema.prisma"
